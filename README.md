@@ -1,2 +1,2 @@
 # DOD-demo
-there is simulation with DOD style.
+These is demo that used to compare the difference between DOD and OOD.
