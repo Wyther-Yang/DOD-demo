@@ -8,6 +8,8 @@ std := -std=c++17
 pwd = $(shell pwd)
 units := random vector2D
 include = -I $(pwd)/include
+lib = -L $(pwd)/lib
+dependency := depends.d
 debug := 
 
 
@@ -16,6 +18,10 @@ unit-obj = lib/$(unit).o
 unit-code = src/unit_$(unit).cpp
 
 objs := random.o vector2D.o DOD_car.o simulation.o
+
+ifneq "$(MAKECMDGOALS)" "clear"
+	-include $(dependency)
+endif
 
 phony += all
 all: simulation
@@ -32,20 +38,23 @@ clearunit:
 
 phony += clear
 clear:
-	@rm -f simulation lib/*
+	@rm -f bin/simulation lib/* $(dependency)
 
-simulation: main.cpp locallib.a
-	@echo cc -o simulation $^
-	@$(cc) $(std) $(include) $(debug) -o bin/$@ $< $(addprefix lib/,locallib.a)
+simulation: main.cpp liblocal.a
+	@echo cc -o simulation 
+	@$(cc) $(std) $(include) $(debug) $(lib) $< -llocal  -o bin/$@
 
-locallib.a: $(objs)
-	@echo ar -o locallib.a $^
-	@ar -r lib/locallib.a $(addprefix lib/,$^) 2>/dev/null
+liblocal.a: $(objs)
+	@echo ar -o liblocal.a $^
+	@ar -r lib/liblocal.a $(addprefix lib/,$^) 2>/dev/null
 	@rm -f $(addprefix lib/,$^)
 
-
 %.o: %.cpp
-	@echo cc -o $@ $^
-	@$(cc) $(std) $(include) $(debug) -c -o $(pwd)/lib/$@ $^
+	@echo cc -c -o $@ 
+	@$(cc) $(std) $(include) $(debug) -c -o $(pwd)/lib/$@ \
+	$(filter %.cpp,$^)
 
-
+%.d: 
+	@echo "all:">$(dependency)
+	@echo cc -m $@
+	@$(cc) $(include) -MM $(addprefix src/,$(subst .o,.cpp,$(objs))) 1>>$(dependency)
