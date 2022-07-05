@@ -1,12 +1,12 @@
 #include "cars.h"
 
+// on ubuntu 20.2, ld.so seems buggy, changing entry point 
+// cause segment when the stage of return to glibc
 int main(int args, char** argv)
 {
-       // int const loops = args;
-        
-       // for (int i = 1; i < loops; i += 2) {
-                DoSimilateForDOD(atoi(argv[1]), atoi(argv[2]));
-     //   }
-
-        return 0;
+#ifdef OOD
+        DoSimilateForOOD(args, argv);
+#else
+        DoSimilateForDOD(args, argv);
+#endif
 }

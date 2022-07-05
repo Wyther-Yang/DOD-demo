@@ -3,7 +3,7 @@
         {
             "name": "Linux",
             "includePath": [
-                "${workspaceFolder}/DataOrientedDesign/include/*"
+                "${workspaceFolder}/include/*"
             ],
             "defines": [],
             "cStandard": "gnu17",
