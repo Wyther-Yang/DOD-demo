@@ -34,7 +34,7 @@ These is a demo that used to compare the difference between DOD and OOD.
         +-----------------------+  
         +-----------------------+  
         + 20480 cars in 144 frame +  
-        real    0m0.98s  
+        real    0m0.098s  
         +-----------------------+  
 
 Repeat 100 times, rough look:  
