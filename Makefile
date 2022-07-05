@@ -58,7 +58,7 @@ dod: main.cpp liblocal.a
 liblocal.a: $(objs)
 	@echo ar -o liblocal.a $^
 	@ar -r lib/liblocal.a $(addprefix lib/,$^) 2>/dev/null
-#	@rm -f $(addprefix lib/,$^)
+	@rm -f $(addprefix lib/,$^)
 
 .PHONY: $(phony)
 
