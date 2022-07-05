@@ -46,7 +46,7 @@ Repeat 100 times, rough look:
         huge:  
                 DOD >>>>>>>> OOD;  
   
-Soon i well test Cache miss with Perf.  
+Soon i will test Cache miss with Perf.  
 
 
 emmm... this's all.
